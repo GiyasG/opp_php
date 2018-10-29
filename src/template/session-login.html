@@ -1,0 +1,27 @@
+<div class="row">
+
+<div class="col-md-5 well">
+<form accept-charset="utf-8" ng-submit="loginForm()">
+<!-- <input type="hidden" name="action" value="login" /> -->
+<input type="email" name="email" placeholder="Email"
+       ng-model="user.em"
+       required/>
+<input type="password" name="password" placeholder="Password"
+       ng-model="user.ps"
+       required/>
+
+<select ng-model="rmid"
+        ng-options="rm.rmid as rm.rmName for rm in rms"
+        required>
+  <option value="" selected>Remember me?</option>
+</select>
+
+<button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+<button class="btn btn-primary"
+ng-click="closeloginForm()"
+>Cancel</button>
+
+</div>
+</div>

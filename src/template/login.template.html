@@ -1,0 +1,22 @@
+<div class="row">
+
+<div class="col-md-5 well" ng-controller="SubmitController">
+<form accept-charset="utf-8" ng-submit="submitForm()">
+<!-- <input type="hidden" name="action" value="login" /> -->
+<input type="email" name="email" placeholder="Email"
+       ng-model="user.em"
+       required/>
+<input type="password" name="password" placeholder="Password"
+       ng-model="user.ps"
+       required/>
+<select name="remember" size="1"
+        ng-model="user.rm"
+        required>
+<option value="0">Remember (keep logged in)? — No</option>
+<option value="1">Remember (keep logged in)? — Yes</option>
+</select>
+<!-- <a ui-sref="loginsubmit"  class="auth_link btn btn-success">Login with email</a> -->
+<button type="submit" class="btn btn-primary">Login</button>
+</form>
+</div>
+</div>
