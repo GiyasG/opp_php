@@ -11,21 +11,21 @@ $auth = new \Delight\Auth\Auth($db);
 $outp = "";
 
 if ($outp != "") {$outp .= ",";}
-// $outp .= '{"LastOperation":"'.\var_dump($result).'",';
+// $outp .= '{"LastOperation":"'.$result).'",';
 $outp .= '{"SessionID":"'.\session_id().'",';
-$outp .= '"isLoggedIn":"'.$auth->isLoggedIn().'"}';
-// $outp .= '{"AuthCheck":"'.\var_dump($auth->check()).'",';
-// $outp .= '{"getUserId":"'.\var_dump($auth->getUserId()).'",';
-// $outp .= '{"AuthId":"'.\var_dump($auth->id()).'",';
-// $outp .= '{"getEmail":"'.\var_dump($auth->getEmail()).'",';
-// $outp .= '{"getUsername":"'.\var_dump($auth->getUsername()).'",';
-// $outp .= '{"getStatus":"'.\var_dump($auth->getStatus()).'",';
-// $outp .= '{"SupermModerator":"'.\var_dump($auth->hasRole(\Delight\Auth\Role::SUPER_MODERATOR)).'",';
-// $outp .= '{"isRemembered":"'.\var_dump($auth->isRemembered()).'",';
-// $outp .= '{"getIpAddress":"'.\var_dump($auth->getIpAddress()).'",';
-// $outp .= '{"createCookieName":"'.\var_dump(\Delight\Auth\Auth::createCookieName('session')).'",';
-// $outp .= '{"createRandomString":"'.\var_dump(\Delight\Auth\Auth::createRandomString()).'",';
-// $outp .= '"Auth::createUuid()":"'.\var_dump(\Delight\Auth\Auth::createUuid()).'"}';
+$outp .= '"isLoggedIn":"'.$auth->isLoggedIn().'",';
+$outp .= '"AuthCheck":"'.$auth->check().'",';
+$outp .= '"getUserId":"'.$auth->getUserId().'",';
+$outp .= '"AuthId":"'.$auth->id().'",';
+$outp .= '"getEmail":"'.$auth->getEmail().'",';
+$outp .= '"getUsername":"'.$auth->getUsername().'",';
+$outp .= '"getStatus":"'.$auth->getStatus().'",';
+$outp .= '"SupermModerator":"'.$auth->hasRole(\Delight\Auth\Role::SUPER_MODERATOR)).'",';
+$outp .= '"isRemembered":"'.$auth->isRemembered().'",';
+$outp .= '"getIpAddress":"'.$auth->getIpAddress().'",';
+$outp .= '"createCookieName":"'.\Delight\Auth\Auth::createCookieName('session').'",';
+$outp .= '"createRandomString":"'.\Delight\Auth\Auth::createRandomString()).'",';
+$outp .= '"Auth::createUuid()":"'.\Delight\Auth\Auth::createUuid().'"}';
 
 
 $outp ='{"litems":['.$outp.']}';

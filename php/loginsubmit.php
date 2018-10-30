@@ -41,7 +41,19 @@ if (isset($postdata->rm)) {
 try {
     $auth->login($postdata->em, $postdata->ps, $rememberDuration);
     $outp .= '{"SessionID":"'.\session_id().'",';
-    $outp .= '"isLoggedIn":"'.$auth->isLoggedIn().'"}';
+    $outp .= '"isLoggedIn":"'.$auth->isLoggedIn().'",';
+    $outp .= '"AuthCheck":"'.$auth->check().'",';
+    $outp .= '"getUserId":"'.$auth->getUserId().'",';
+    $outp .= '"AuthId":"'.$auth->id().'",';
+    $outp .= '"getEmail":"'.$auth->getEmail().'",';
+    $outp .= '"getUsername":"'.$auth->getUsername().'",';
+    $outp .= '"getStatus":"'.$auth->getStatus().'",';
+    $outp .= '"SuperModerator":"'.$auth->hasRole(\Delight\Auth\Role::SUPER_MODERATOR).'",';
+    $outp .= '"isRemembered":"'.$auth->isRemembered().'",';
+    $outp .= '"getIpAddress":"'.$auth->getIpAddress().'",';
+    $outp .= '"createCookieName":"'.\Delight\Auth\Auth::createCookieName('session').'",';
+    $outp .= '"createRandomString":"'.\Delight\Auth\Auth::createRandomString().'",';
+    $outp .= '"Auth::createUuid()":"'.\Delight\Auth\Auth::createUuid().'"}';
 }
 catch (\Delight\Auth\InvalidEmailException $e) {
     $outp ='{"Error":"Wrong email address"}';

@@ -12,9 +12,9 @@ if ($key === 'logOut') {
   $auth = new \Delight\Auth\Auth($db);
   if ($auth->isLoggedIn()) {
     $auth->logOut();
-    $outp ="Logged out";
+    $outp ='{"isloggedin":false}';
   } else {
-  $outp ="You are not logged in";
+    $outp ='{"isloggedin":true}';
   }
 }
 echo ($outp);

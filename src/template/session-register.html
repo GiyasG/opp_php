@@ -1,0 +1,30 @@
+<div class="row">
+
+<div class="col-md-5 well">
+
+
+  <form accept-charset="utf-8" ng-submit="registerForm()">
+	<input type="email" name="email" placeholder="Email address"
+         ng-model="user.em"
+         required/>
+	<input type="password" name="password" placeholder="Password"
+         ng-model="user.ps"
+         required/>
+	<input type="text" name="username" placeholder="Username (optional)"
+  ng-model="user.un"/>
+  <select ng-model="emid"
+          ng-options="em.emid as em.emName for em in ems"
+          required>
+    <option value="" selected>Require email confirmation?</option>
+
+  </select>
+	<button type="submit"  class="btn btn-primary">Register</button>
+	</form>
+
+<button class="btn btn-primary"
+ng-click="closeregisterForm()"
+>Cancel</button>
+
+  <p class="pwarnings">{{loginWarning}}</p>
+</div>
+</div>

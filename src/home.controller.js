@@ -4,21 +4,23 @@
   angular.module('ShopApp')
   .controller('HomeController', HomeController)
   .directive('sessionLogin', SessionLoginDirective)
-  .directive('sessionLogout', SessionLogoutDirective);
+  .directive('sessionLogout', SessionLogoutDirective)
+  .directive('sessionRegister', SessionRegisterDirective);
 
   HomeController.$inject = ['$scope', '$http', 'isloggedin'];
 
-    function HomeController($scope, $http, isloggedin) {
+    function HomeController($scope, $http, isloggedin, sitems) {
 
         var hCtrl = this;
 
         hCtrl.isloggedin = isloggedin;
-
         if (hCtrl.isloggedin === false) {
           $scope.showLogin = true;
+          $scope.showRegister = true;
           console.log("Logged out");
         } else {
           $scope.showLogin = false;
+          $scope.showRegister = false;
           console.log("Logged in");
         }
 
@@ -28,11 +30,21 @@
                     ];
         $scope.showLoginForm = false;
         $scope.user = {};
+        $scope.loginWarning = "";
 
+
+        $scope.showRegisterForm = false;
+        $scope.ems = [
+                      {emid: 1, emName: 'Require email confirmation? — No'},
+                      {emid: 2, emName: 'Require email confirmation? — Yes'},
+                    ];
+
+// *** Console Logs ***************************** //
         console.log("Is logged in: "+hCtrl.isloggedin);
         console.log("Show login: "+$scope.showLogin);
         console.log("Show login form: "+$scope.showLoginForm);
-
+        console.log("sitems: "+hCtrl.sitems);
+// ***************************************** //
         $scope.logoutForm = function() {
           var userparams = "logOut";
           $http({
@@ -42,13 +54,14 @@
                   headers : { 'Content-Type': 'application/x-www-form-urlencoded'},
                    })
                 .then(function(response) {
-                  if (response.data == "Logged out") {
+                  if (response.data.isloggedin === false) {
                     $scope.showLogin = true;
                   }
                     return response.data;
                   });
         };
 
+// ***************************************** //
     $scope.loginForm = function() {
         var regem = ($scope.user.em).replace(new RegExp('[.]', 'g'), '-dot-');
         if ($scope.user.ps) {
@@ -77,21 +90,83 @@
                   $scope.user = {};
                 } else {
                   $scope.showLogin = true;
+                  $scope.loginWarning = response.data.sitems[0].Error;
+                  console.log($scope.loginWarning);
                 }
                 return response.data.sitems;
             });
           };
+// ***************************************** //
+$scope.registerForm = function() {
+    var regem = ($scope.user.em).replace(new RegExp('[.]', 'g'), '-dot-');
+    if ($scope.user.ps) {
+    var regps = ($scope.user.ps).replace(new RegExp('[.]', 'g'), '-dot-').replace(new RegExp('\\[', 'g'), '-sqbl-');
+    }
+    if ($scope.user.un) {
+    var regun = ($scope.user.un).replace(new RegExp('[.]', 'g'), '-dot-').replace(new RegExp('\\[', 'g'), '-sqbl-');
+    }
+    // console.log($scope.rms[0].rmid);
+    var userparams =
+      {
+        em: regem,
+        ps: regps,
+        un: regun,
+        rm: $scope.ems[0].emid
+      };
+
+      console.log(userparams);
+
+  $http({
+          method  : 'POST',
+          url     : 'php/registersubmit.php',
+          data    : userparams,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
+           })
+        .then(function(response) {
+            if (response.data.sitems[0].isLoggedIn === "1") {
+              $scope.showRegister = false;
+              $scope.showRegisterForm = false;
+              $scope.user = {};
+            } else {
+              $scope.showLogin = true;
+              $scope.loginWarning = response.data.sitems[0].Error;
+              console.log($scope.loginWarning);
+            }
+            return response.data.sitems;
+        });
+      };
+
+// ***************************************** //
           $scope.openloginForm = function() {
-            console.log("Clicked open");
+            // console.log("Clicked open");
             if (!($scope.showLoginForm)) {
+              $scope.loginWarning = "";
               $scope.showLoginForm = true;
             }
           };
 
           $scope.closeloginForm = function() {
-            console.log("Clicked close");
+            // console.log("Clicked close");
             if ($scope.showLoginForm) {
+              $scope.loginWarning = "";
               $scope.showLoginForm = false;
+            }
+          };
+
+
+          $scope.openregisterForm = function() {
+            // console.log("Clicked open");
+            if (!($scope.showRegisterForm)) {
+              $scope.loginWarning = "";
+              $scope.showRegisterForm = true;
+            }
+          };
+
+          $scope.closeregisterForm = function() {
+            // console.log("Clicked close");
+            if ($scope.showRegisterForm) {
+              $scope.loginWarning = "";
+              $scope.showRegisterForm = false;
             }
           };
 };
@@ -106,6 +181,12 @@
     function SessionLogoutDirective () {
       return {
         templateUrl: 'src/template/session-logout.html'
+      }
+    };
+
+    function SessionRegisterDirective () {
+      return {
+        templateUrl: 'src/template/session-register.html'
       }
     };
 
