@@ -30,6 +30,8 @@
 <script src="src/checkout.component.js"></script>
 <script src="src/checkout.controller.js"></script>
 
+<script src="src/verify.component.js"></script>
+<script src="src/verify.controller.js"></script>
 
 <script src="src/routes.js"></script>
 

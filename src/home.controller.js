@@ -9,7 +9,7 @@
 
   HomeController.$inject = ['$scope', '$http', 'isloggedin'];
 
-    function HomeController($scope, $http, isloggedin, sitems) {
+    function HomeController($scope, $http, isloggedin) {
 
         var hCtrl = this;
 
@@ -123,9 +123,10 @@ $scope.registerForm = function() {
           headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
            })
         .then(function(response) {
-            if (response.data.sitems[0].isLoggedIn === "1") {
+            if (response.data.sitems[0].Info) {
               $scope.showRegister = false;
-              $scope.showRegisterForm = false;
+              // $scope.showRegisterForm = false;
+              $scope.loginWarning = response.data.sitems[0].Info;
               $scope.user = {};
             } else {
               $scope.showLogin = true;
@@ -142,6 +143,7 @@ $scope.registerForm = function() {
             if (!($scope.showLoginForm)) {
               $scope.loginWarning = "";
               $scope.showLoginForm = true;
+              $scope.showRegisterForm = false;
             }
           };
 
@@ -159,6 +161,7 @@ $scope.registerForm = function() {
             if (!($scope.showRegisterForm)) {
               $scope.loginWarning = "";
               $scope.showRegisterForm = true;
+              $scope.showLoginForm = false;
             }
           };
 

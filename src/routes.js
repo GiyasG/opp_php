@@ -71,17 +71,22 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
   }
 
-  // var login = {
-  //   name: 'home.login',
-  //   parent: 'home',
-  //   url: 'login',
-  //   controller: 'LoginController as lCtrl',
-  //   views: {
-  //        'loginform@home': {
-  //         templateUrl: 'src/template/login.template.html',
-  //       }
-  //     }
-  // }
+  var emailconfirmed = {
+    name: 'verifyemail',
+    parent: 'home',
+    url: 'verifyemail/{selector}/{token}',
+    views: {
+         'verifyemail@home': {
+          templateUrl: 'src/template/verify.template.html',
+          controller: 'VerifyController as vCtrl'
+        }
+      },
+      resolve: {
+              info: function(ShopDataService, $stateParams) {
+                    return ShopDataService.VerifyEmail($stateParams.selector, $stateParams.token);
+                  }
+                }
+  }
 
   $urlRouterProvider.otherwise('/');
   $stateProvider
@@ -89,7 +94,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state(items)
   .state(itemsCart)
   .state(checkout)
-  // .state(login)
+  .state(emailconfirmed)
   // .state(loginsubmit)
  }
 })();

@@ -8,17 +8,36 @@ if ( $_POST ) {
         $postdata = json_decode($key);
     }
 
+    // print_r($postdata->un);
+
 require '../vendor/autoload.php';
 $db = new \PDO('mysql:dbname=auth;host=127.0.0.1;charset=utf8mb4', 'authz', 'xP9tM715UK');
 $auth = new \Delight\Auth\Auth($db);
 $outp = "";
 if (isset($postdata->rm)) {
   if ($postdata->rm == 1) {
-    $callback = function ($selector, $token) {
-      // $var = '{"sitems":[{"Selector":"'.htmlspecialchars($selector).'","Token":"'.htmlspecialchars($token).'"}]}';
-      $url = 'http://localhost/opp_php/#/verify_email?selector=' . \urlencode($selector) . '&token=' . \urlencode($token);
-      return $var;
-    };
+    $em = $postdata->em;
+    $un = $postdata->un;
+    $callback = function ($selector, $token) use ($em, $un) {
+
+       $sl = urlencode($selector);
+       $tk = urlencode($token);
+       $to = $em;
+       $subject = "Confirmation for $un";
+       $header = "Confirmation from";
+       $message = "Please click the link below to verify and activate your account ";
+       $message .= 'http://localhost/opp_php/#/verifyemail/'.$sl.'/'.$tk;
+       $sentmail = mail($to,$subject,$message,$header);
+
+       if($sentmail)
+                {
+       echo '{"sitems":[{"Info":"Your confirmation link has been sent to your e-mail address"}]}';
+       }
+       else
+             {
+       echo '{"sitems":[{"Info":"Your confirmation link has been sent to your e-mail address"}]}';
+       }
+     };
   } else {
     $callback = null;
   }
@@ -26,7 +45,6 @@ if (isset($postdata->rm)) {
 
 try {
     $auth->registerWithUniqueUsername($postdata->em, $postdata->ps, $postdata->un, $callback);
-    echo $var;
    }
     catch (\Delight\Auth\InvalidEmailException $e) {
       $outp ='{"Error":"invalid email address"}';
@@ -45,4 +63,11 @@ try {
 
   // $outp ='{"sitems":['.$outp.']}';
   // echo ($outp);
+
+  // function myUrlEncode($string) {
+  //     $entities = array('%21', '%2A', '%27', '%28', '%29', '%3B', '%3A', '%40', '%26', '%3D', '%2B', '%24', '%2C', '%2F', '%3F', '%25', '%23', '%5B', '%5D');
+  //     $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]");
+  //     return str_replace($entities, $replacements, urlencode($string));
+  // }
+
 ?>

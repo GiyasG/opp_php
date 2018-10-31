@@ -38,6 +38,15 @@
         return basketitems
         };
 
+        service.VerifyEmail = function (sl, tk) {
+          // console.log($stateParams);
+          return $http.get("php/verifyemail.php?selector="+sl+"&token="+tk)
+            .then(function (response) {
+            console.log(response.data.info);
+            return response.data.info;
+          });
+        };
+
 
       }
 })();
