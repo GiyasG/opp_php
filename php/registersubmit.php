@@ -35,7 +35,7 @@ if (isset($postdata->rm)) {
        }
        else
              {
-       echo '{"sitems":[{"Info":"Your confirmation link has been sent to your e-mail address"}]}';
+       echo '{"sitems":[{"Info":"There is an error while sending to your e-mail address"}]}';
        }
      };
   } else {
@@ -47,16 +47,16 @@ try {
     $auth->registerWithUniqueUsername($postdata->em, $postdata->ps, $postdata->un, $callback);
    }
     catch (\Delight\Auth\InvalidEmailException $e) {
-      $outp ='{"Error":"invalid email address"}';
+      echo '{"sitems":[{"Info":"invalid email address"}]}';
     }
     catch (\Delight\Auth\InvalidPasswordException $e) {
-      $outp ='{"Error":"invalid password"}';
+      echo '{"sitems":[{"Info":"invalid password"}]}';
     }
     catch (\Delight\Auth\UserAlreadyExistsException $e) {
-      $outp ='{"Error":"email address already exists"}';
+      echo '{"sitems":[{"Info":"email address already exists"}]}';
     }
     catch (\Delight\Auth\DuplicateUsernameException $e) {
-      $outp ='{"Error":"username already exists"}';
+      echo '{"sitems":[{"Info":"username already exists"}]}';
     }
 
 }
