@@ -151,3 +151,12 @@ div .well {
 	right: 10px;
 	position: absolute;
 }
+
+.forgot_password {
+	position: absolute;
+	right: 5px;
+	cursor: pointer;
+}
+.forgot_password:hover {
+	cursor: pointer;
+}

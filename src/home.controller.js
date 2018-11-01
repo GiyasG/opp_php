@@ -44,6 +44,13 @@
         console.log("Show login: "+$scope.showLogin);
         console.log("Show login form: "+$scope.showLoginForm);
         console.log("sitems: "+hCtrl.sitems);
+
+        // ***************************************** //
+        $scope.forgottenPassword = function(ev) {
+          ev.preventDefault();
+          console.log("Hello there");
+        };
+
 // ***************************************** //
         $scope.logoutForm = function() {
           var userparams = "logOut";
