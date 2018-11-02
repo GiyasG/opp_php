@@ -5,7 +5,8 @@
   .controller('HomeController', HomeController)
   .directive('sessionLogin', SessionLoginDirective)
   .directive('sessionLogout', SessionLogoutDirective)
-  .directive('sessionRegister', SessionRegisterDirective);
+  .directive('sessionRegister', SessionRegisterDirective)
+  .directive('forgottenPassword', ForgottenPassordDirective);
 
   HomeController.$inject = ['$scope', '$http', 'isloggedin'];
 
@@ -39,6 +40,8 @@
                       {emid: 2, emName: 'Require email confirmation? — Yes'},
                     ];
 
+        $scope.showPasswordForm = false;
+
 // *** Console Logs ***************************** //
         console.log("Is logged in: "+hCtrl.isloggedin);
         console.log("Show login: "+$scope.showLogin);
@@ -46,10 +49,42 @@
         console.log("sitems: "+hCtrl.sitems);
 
         // ***************************************** //
-        $scope.forgottenPassword = function(ev) {
+        $scope.showForgottenPassword = function(ev) {
           ev.preventDefault();
-          console.log("Hello there");
+          console.log("Hello");
+          $scope.showPasswordForm = true;
+          $scope.loginWarning = "";
         };
+      // ***************************************** //
+$scope.changepassConfirmation = function () {
+var regem = ($scope.user.resend_email).replace(new RegExp('[.]', 'g'), '-dot-');
+console.log(regem);
+var userparams =
+  {
+    em: regem
+  };
+
+$http({
+      method  : 'POST',
+      url     : 'php/requestforpassword.php',
+      data    : userparams,
+      headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
+       })
+    .then(function(response) {
+        if (response.data.info[0].ConfirmationStatus) {
+          $scope.showRegister = false;
+          $scope.loginWarning = response.data.info[0].ConfirmationStatus;
+          $scope.resend_email = "";
+          $scope.showPasswordForm = false;
+        } else {
+          $scope.showLogin = true;
+          $scope.loginWarning = response.data.info[0].ConfirmationStatus;
+        }
+        return response.data.info;
+    });
+  };
+
+// ***************************************** //
 
 // ***************************************** //
         $scope.logoutForm = function() {
@@ -159,6 +194,7 @@ $scope.registerForm = function() {
             if ($scope.showLoginForm) {
               $scope.loginWarning = "";
               $scope.showLoginForm = false;
+              $scope.showPasswordForm = false;
             }
           };
 
@@ -197,6 +233,12 @@ $scope.registerForm = function() {
     function SessionRegisterDirective () {
       return {
         templateUrl: 'src/template/session-register.html'
+      }
+    };
+
+    function ForgottenPassordDirective () {
+      return {
+        templateUrl: 'src/template/forgotten-password.html'
       }
     };
 

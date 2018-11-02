@@ -47,6 +47,13 @@
           });
         };
 
+        service.resetPassword = function (sl, tk) {
+          return $http.get("php/canresetpassword.php?selector="+sl+"&token="+tk)
+            .then(function (response) {
+            console.log(response.data.info);
+            return response.data.info;
+          });
+        };
 
       }
 })();

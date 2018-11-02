@@ -33,6 +33,9 @@
 <script src="src/verify.component.js"></script>
 <script src="src/verify.controller.js"></script>
 
+<script src="src/changepassword.component.js"></script>
+<script src="src/changepassword.controller.js"></script>
+
 <script src="src/routes.js"></script>
 
 </head>

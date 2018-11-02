@@ -88,6 +88,24 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
   }
 
+
+  var passwordconfirmed = {
+    name: 'changepassword',
+    parent: 'home',
+    url: 'changepassword/{selector}/{token}',
+    views: {
+         'changepassword@home': {
+          templateUrl: 'src/template/passwordchange.template.html',
+          controller: 'ChangepasswordController as cpCtrl'
+        }
+      },
+      resolve: {
+              info: function(ShopDataService, $stateParams) {
+                    return ShopDataService.resetPassword($stateParams.selector, $stateParams.token);
+                  }
+                }
+  }
+
   $urlRouterProvider.otherwise('/');
   $stateProvider
   .state(home)
@@ -95,6 +113,6 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state(itemsCart)
   .state(checkout)
   .state(emailconfirmed)
-  // .state(loginsubmit)
+  .state(passwordconfirmed)
  }
 })();
