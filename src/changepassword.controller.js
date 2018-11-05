@@ -10,32 +10,30 @@
     cpCtrl.info = info;
     $scope.user = {};
     $scope.loginWarningResend = "";
+    $scope.showLoginForm = false;
 console.log("cpCtrl: "+$scope);
 console.log($stateParams);
     // ***************************************** //
     $scope.changePassword = function() {
-        var regem = ($scope.user.resend_email).replace(new RegExp('[.]', 'g'), '-dot-');
-        console.log(regem);
         var userparams =
           {
-            em: regem
+            sl: $stateParams.selector,
+            tk: $stateParams.token,
+            ps: $scope.user.new_password
           };
 
       $http({
               method  : 'POST',
-              url     : 'php/resendconfirmation.php',
+              url     : 'php/changepassword.php',
               data    : userparams,
               headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
                })
             .then(function(response) {
                 if (response.data.info[0].ConfirmationStatus) {
-                  $scope.showRegister = false;
-                  // $scope.showRegisterForm = false;
                   $scope.loginWarning = "";
                   $scope.loginWarningResend = response.data.info[0].ConfirmationStatus;
-                  $scope.resend_email = "";
+                  $scope.user = {};
                 } else {
-                  $scope.showLogin = true;
                   $scope.loginWarning = "";
                   $scope.loginWarningResend = response.data.info[0].ConfirmationStatus;
                 }

@@ -186,6 +186,7 @@ $scope.registerForm = function() {
               $scope.loginWarning = "";
               $scope.showLoginForm = true;
               $scope.showRegisterForm = false;
+              $scope.showPasswordChange = false;
             }
           };
 
@@ -195,6 +196,7 @@ $scope.registerForm = function() {
               $scope.loginWarning = "";
               $scope.showLoginForm = false;
               $scope.showPasswordForm = false;
+              $scope.showPasswordChange = false;
             }
           };
 
@@ -205,6 +207,7 @@ $scope.registerForm = function() {
               $scope.loginWarning = "";
               $scope.showRegisterForm = true;
               $scope.showLoginForm = false;
+              $scope.showPasswordChange = false;
             }
           };
 
@@ -213,6 +216,7 @@ $scope.registerForm = function() {
             if ($scope.showRegisterForm) {
               $scope.loginWarning = "";
               $scope.showRegisterForm = false;
+              $scope.showPasswordChange = false;
             }
           };
 };
