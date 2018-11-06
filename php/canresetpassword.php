@@ -11,7 +11,7 @@ if (isset($sl)) {
   $outp = "";
   try {
       $auth->canResetPasswordOrThrow($sl, $tk);
-      $outp ='{"info":[{"ConfirmationStatus":"Ask the user for their new password", "isEmailConfirmed":true}]}';
+      $outp ='{"info":[{"ConfirmationStatus":"Please enter a new valid password", "isEmailConfirmed":true}]}';
     }
 
   catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {

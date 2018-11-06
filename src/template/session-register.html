@@ -9,7 +9,13 @@
          required/>
 	<input type="password" name="password" placeholder="Password"
          ng-model="user.ps"
+         ng-change="analyze(user.ps)"
+         ng-style="passwordStrength"
          required/>
+  <div>
+    <div ng-style="passwordStrength">{{passwordRegister}}</div>
+
+  </div>
 	<input type="text" name="username" placeholder="Username (optional)"
   ng-model="user.un"/>
   <select ng-model="emid"
@@ -18,7 +24,9 @@
     <option value="" selected>Require email confirmation?</option>
 
   </select>
-	<button type="submit"  class="btn btn-primary">Register</button>
+	<button type="submit"
+          class="btn btn-primary"
+          ng-disabled="disabledRegister">Register</button>
 	</form>
 
 <button class="btn btn-primary"

@@ -56,6 +56,44 @@
           $scope.loginWarning = "";
         };
       // ***************************************** //
+      var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+      var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+      $scope.passwordStrength = {
+          "color": "grey",
+          "margin-left": "5px",
+          "margin-top": "5px",
+          "font-size": "0.9em"
+      };
+      $scope.disabledRegister = true;
+      $scope.passwordRegister = "Use at least one an uppercase letter, a number and a special character";
+
+      $scope.analyze = function(value) {
+        if (value) {
+          if(strongRegex.test(value) & value.length >= 8) {
+            console.log(value.length);
+            $scope.passwordStrength["color"] = "green";
+            $scope.disabledRegister = false;
+            $scope.passwordRegister = "Strong password";
+          } else if(mediumRegex.test(value) & value.length >= 8) {
+            console.log(value.length);
+            $scope.passwordStrength["color"] = "orange";
+            $scope.disabledRegister = false;
+            $scope.passwordRegister = "Fair password";
+          } else {
+            console.log(value.length);
+            $scope.passwordStrength["color"] = "red";
+            $scope.disabledRegister = true;
+            $scope.passwordRegister = "Not valid password, Use at least one an uppercase letter, a number and a special character";
+          }
+        } else {
+          $scope.passwordStrength["color"] = "grey";
+          $scope.passwordRegister = "Use at least one an uppercase letter, a number and a special character";
+        }
+      };
+  // ***************************************** //
+
+
 $scope.changepassConfirmation = function () {
 var regem = ($scope.user.resend_email).replace(new RegExp('[.]', 'g'), '-dot-');
 console.log(regem);
@@ -187,6 +225,7 @@ $scope.registerForm = function() {
               $scope.showLoginForm = true;
               $scope.showRegisterForm = false;
               $scope.showPasswordChange = false;
+              $scope.showPasswordForm = false;
             }
           };
 
@@ -207,6 +246,7 @@ $scope.registerForm = function() {
               $scope.loginWarning = "";
               $scope.showRegisterForm = true;
               $scope.showLoginForm = false;
+              $scope.showPasswordForm = false;
               $scope.showPasswordChange = false;
             }
           };
@@ -216,6 +256,7 @@ $scope.registerForm = function() {
             if ($scope.showRegisterForm) {
               $scope.loginWarning = "";
               $scope.showRegisterForm = false;
+              $scope.showPasswordForm = false;
               $scope.showPasswordChange = false;
             }
           };
