@@ -27,7 +27,7 @@
 
         $scope.rms = [
                       {rmid: 1, rmName: 'Remember (keep logged in)? — No'},
-                      {rmid: 2, rmName: 'Remember (keep logged in)? — Yes'},
+                      {rmid: 2, rmName: 'Remember (keep logged in)? — Yes'}
                     ];
         $scope.showLoginForm = false;
         $scope.user = {};
@@ -36,9 +36,10 @@
 
         $scope.showRegisterForm = false;
         $scope.ems = [
-                      {emid: 1, emName: 'Require email confirmation? — No'},
-                      {emid: 2, emName: 'Require email confirmation? — Yes'},
+                        {emid: 1, emName: 'Require email confirmation? — No'},
+                        {emid: 2, emName: 'Require email confirmation? — Yes'}
                     ];
+                    console.log($scope.ems);
 
         $scope.showPasswordForm = false;
 
@@ -185,13 +186,13 @@ $scope.registerForm = function() {
     if ($scope.user.un) {
     var regun = ($scope.user.un).replace(new RegExp('[.]', 'g'), '-dot-').replace(new RegExp('\\[', 'g'), '-sqbl-');
     }
-    // console.log($scope.rms[0].rmid);
+    console.log($scope.ems.emid);
     var userparams =
       {
         em: regem,
         ps: regps,
         un: regun,
-        rm: $scope.ems[0].emid
+        rm: $scope.ems.emid
       };
 
       console.log(userparams);
@@ -203,15 +204,18 @@ $scope.registerForm = function() {
           headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
            })
         .then(function(response) {
-            if (response.data.sitems[0].Info) {
-              $scope.showRegister = false;
-              // $scope.showRegisterForm = false;
-              $scope.loginWarning = response.data.sitems[0].Info;
-              $scope.user = {};
-            } else {
-              $scope.showLogin = true;
-              $scope.loginWarning = response.data.sitems[0].Error;
-              console.log($scope.loginWarning);
+            if (response.data.sitems) {
+              if (response.data.sitems[0].Info) {
+                $scope.showRegister = false;
+                $scope.loginWarning = response.data.sitems[0].Info;
+                $scope.user = {};
+                $scope.passwordStrength["color"] = "grey";
+                $scope.passwordRegister = "Use at least one an uppercase letter, a number and a special character";
+              } else if (response.data.sitems[0].Error) {
+                $scope.showLogin = true;
+                $scope.loginWarning = response.data.sitems[0].Error;
+                console.log($scope.loginWarning);
+              }
             }
             return response.data.sitems;
         });
@@ -221,6 +225,7 @@ $scope.registerForm = function() {
           $scope.openloginForm = function() {
             // console.log("Clicked open");
             if (!($scope.showLoginForm)) {
+              $scope.pwarnings = "";
               $scope.loginWarning = "";
               $scope.showLoginForm = true;
               $scope.showRegisterForm = false;

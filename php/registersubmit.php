@@ -8,16 +8,21 @@ if ( $_POST ) {
         $postdata = json_decode($key);
     }
 
-    // print_r($postdata->un);
+    // print_r ($postdata->rm);
+
+    $em = $postdata->em;
+    if (isset($postdata->un)) {
+      $un = $postdata->un;
+    } else {
+      $un = $em;
+    }
 
 require '../vendor/autoload.php';
 $db = new \PDO('mysql:dbname=auth;host=127.0.0.1;charset=utf8mb4', 'authz', 'xP9tM715UK');
 $auth = new \Delight\Auth\Auth($db);
 $outp = "";
 if (isset($postdata->rm)) {
-  if ($postdata->rm == 1) {
-    $em = $postdata->em;
-    $un = $postdata->un;
+  if ($postdata->rm == 2) {
     $callback = function ($selector, $token) use ($em, $un) {
 
        $sl = urlencode($selector);
@@ -35,7 +40,7 @@ if (isset($postdata->rm)) {
        }
        else
              {
-       echo '{"sitems":[{"Info":"There is an error while sending to your e-mail address"}]}';
+       echo '{"sitems":[{"Error":"There was an error while sending to your email"}]}';
        }
      };
   } else {
@@ -44,19 +49,22 @@ if (isset($postdata->rm)) {
 }
 
 try {
-    $auth->registerWithUniqueUsername($postdata->em, $postdata->ps, $postdata->un, $callback);
+    $auth->registerWithUniqueUsername($em, $postdata->ps, $un, $callback);
+        if ($callback == null) {
+          echo '{"sitems":[{"Info":"Your email has been registered"}]}';
+        }
    }
     catch (\Delight\Auth\InvalidEmailException $e) {
-      echo '{"sitems":[{"Info":"invalid email address"}]}';
+      echo '{"sitems":[{"Error":"invalid email address"}]}';
     }
     catch (\Delight\Auth\InvalidPasswordException $e) {
-      echo '{"sitems":[{"Info":"invalid password"}]}';
+      echo '{"sitems":[{"Error":"invalid password"}]}';
     }
     catch (\Delight\Auth\UserAlreadyExistsException $e) {
-      echo '{"sitems":[{"Info":"email address already exists"}]}';
+      echo '{"sitems":[{"Error":"email address already exists"}]}';
     }
     catch (\Delight\Auth\DuplicateUsernameException $e) {
-      echo '{"sitems":[{"Info":"username already exists"}]}';
+      echo '{"sitems":[{"Error":"username already exists"}]}';
     }
 
 }
