@@ -3,6 +3,7 @@
 
   angular.module('ShopApp')
   .controller('HomeController', HomeController)
+  .directive('sessionCart', SessionCartDirective)
   .directive('sessionLogin', SessionLoginDirective)
   .directive('sessionLogout', SessionLogoutDirective)
   .directive('sessionRegister', SessionRegisterDirective)
@@ -15,14 +16,24 @@
         var hCtrl = this;
 
         hCtrl.isloggedin = isloggedin;
-        if (hCtrl.isloggedin === false) {
+        if (hCtrl.isloggedin[0].isIn === false) {
           $scope.showLogin = true;
           $scope.showRegister = true;
-          console.log("Logged out");
+          if (isloggedin[1].items === null) {
+            $scope.showCart = false;
+          } else {
+            $scope.showCart = true;
+          }
+          console.log("Logged out"+$scope.showCart);
         } else {
           $scope.showLogin = false;
           $scope.showRegister = false;
-          console.log("Logged in");
+          if (isloggedin[1].items === null) {
+            $scope.showCart = false;
+          } else {
+            $scope.showCart = true;
+          }
+          console.log("Logged in"+$scope.showCart);
         }
 
         $scope.rms = [
@@ -135,7 +146,7 @@ $http({
                   headers : { 'Content-Type': 'application/x-www-form-urlencoded'},
                    })
                 .then(function(response) {
-                  if (response.data.isloggedin === false) {
+                  if (response.data.isloggedin[0].isIn === false) {
                     $scope.showLogin = true;
                   }
                     return response.data;
@@ -267,6 +278,12 @@ $scope.registerForm = function() {
           };
 };
 
+
+    function SessionCartDirective () {
+      return {
+        templateUrl: 'src/template/session-cart.html'
+      }
+    };
 
     function SessionLoginDirective () {
       return {

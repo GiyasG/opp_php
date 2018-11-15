@@ -272,3 +272,14 @@ class Database{
 		}
 
 }
+
+class Table extends Database {
+
+	function get_ParentResult($tbl){
+		parent::connect();
+		parent::setName('SET NAMES \'utf8\'');
+		parent::select($tbl); // Table name, Column Names, JOIN, WHERE conditions, ORDER BY conditions
+		$val = parent::getResult();
+		return $val;
+	}
+}

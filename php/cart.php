@@ -1,9 +1,9 @@
 <?php
-// $pref = time();
 session_start();
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
+// $pref = time();
 include('class/mysql_crud.php');
 $si = $_GET['id'];
 $qt = $_GET['qty'];
@@ -12,12 +12,11 @@ $sz = $_GET['sz'];
 
 if ($si == '') {
   $_SESSION['cart'] =array();
-  unset($_SESSION);
-  session_destroy();
-  echo (session_id());
+  unset($_SESSION['cart']);
+  // var_dump($_SESSION);
+  session_regenerate_id(true);
 
 } else {
-
 
   if (isset($_SESSION['cart'])) {
     $subarray_number = 0;
