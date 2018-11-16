@@ -24,7 +24,7 @@
           } else {
             $scope.showCart = true;
           }
-          console.log("Logged out"+$scope.showCart);
+          console.log("Logged out "+hCtrl.isloggedin[1].items);
         } else {
           $scope.showLogin = false;
           $scope.showRegister = false;
@@ -33,7 +33,7 @@
           } else {
             $scope.showCart = true;
           }
-          console.log("Logged in"+$scope.showCart);
+          console.log("Logged in "+hCtrl.isloggedin[0]);
         }
 
         $scope.rms = [
@@ -50,15 +50,14 @@
                         {emid: 1, emName: 'Require email confirmation? — No'},
                         {emid: 2, emName: 'Require email confirmation? — Yes'}
                     ];
-                    console.log($scope.ems);
+                    // console.log($scope.ems);
 
         $scope.showPasswordForm = false;
 
 // *** Console Logs ***************************** //
-        console.log("Is logged in: "+hCtrl.isloggedin);
-        console.log("Show login: "+$scope.showLogin);
-        console.log("Show login form: "+$scope.showLoginForm);
-        console.log("sitems: "+hCtrl.sitems);
+        // console.log("Is logged in: "+hCtrl.isloggedin);
+        // console.log("Show login: "+$scope.showLogin);
+        // console.log("Show login form: "+$scope.showLoginForm);
 
         // ***************************************** //
         $scope.showForgottenPassword = function(ev) {

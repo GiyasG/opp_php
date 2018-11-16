@@ -9,15 +9,25 @@
   function ItemsController(items) {
     var itemsCtrl = this;
     itemsCtrl.items = items;
-    console.log("iCtrl: "+itemsCtrl.items);
+    console.log("iCtrl: "+itemsCtrl.items[0].all[0]);
 
     itemsCtrl.sz = "";
 
-    itemsCtrl.selectAllQuantities = function (sizeId, item_id, arr_ind) {
+    console.log(itemsCtrl.items);
+
+  // itemsCtrl.isClicked = function($index){
+  //       console.log($index);
+  //       var color = itemsCtrl.items[0].all[$index].clicked ? 'red' : 'blue';
+  //       return {color:color};
+  //   }
+
+  itemsCtrl.selectAllQuantities = function (sizeId, item_id, arr_ind) {
 
     itemsCtrl.sizeClicked = sizeId+arr_ind;
+    console.log(itemsCtrl.sizeClicked);
 
-      var qty = itemsCtrl.items[arr_ind][sizeId];
+      var qty = itemsCtrl.items[0].all[arr_ind][sizeId];
+      // console.log("gty: "+((itemsCtrl.items[0].all[0])[arr_ind][sizeId]));
       var x = sizeId.substring(3,1);
       itemsCtrl.sz = x;
       console.log(itemsCtrl.sz);

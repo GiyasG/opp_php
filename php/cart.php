@@ -13,11 +13,10 @@ $sz = $_GET['sz'];
 if ($si == '') {
   $_SESSION['cart'] =array();
   unset($_SESSION['cart']);
-  // var_dump($_SESSION);
+  if(isset($_SESSION['cart'])) {
   session_regenerate_id(true);
-
+  }
 } else {
-
   if (isset($_SESSION['cart'])) {
     $subarray_number = 0;
     foreach ($_SESSION['cart'] as $k => $v) {

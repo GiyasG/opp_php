@@ -6,9 +6,9 @@
 <span>Items</span>
 </h4>
 
-<div ui-view="details" ng-show="cartCtrl.items.length > 0"></div>
+<div ui-view="details" ng-show="itemsCtrl.items[1].cart != null">Hello</div>
 
-<div ng-repeat="item in itemsCtrl.items" ng-init="sectionIndex = $index">
+<div ng-repeat="item in itemsCtrl.items[0].all" ng-init="sectionIndex = $index">
 	<div align="center" class="row">
 
     <div class="col-md-2">
@@ -32,7 +32,7 @@
             <h4  align="center"> აირჩიეთ ზომა </h4>
 			<h4>
         <span ng-repeat="size in itemsCtrl.selectSizes"
-							ng-class="{ 'ssize-clicked': size.id.concat(sectionIndex) == itemsCtrl.sizeClicked }"
+							ng-class="{ 'ssizec': size.id.concat(sectionIndex) == itemsCtrl.sizeClicked }"
 							ng-click="itemsCtrl.selectAllQuantities(size.id, item.id, sectionIndex)"
 							class='ssize label'>
 							{{size.name}}
