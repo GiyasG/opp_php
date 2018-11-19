@@ -35,28 +35,11 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
    }
   }
 
-  var itemsCart = {
-    name: 'items.cart',
-    parent: 'items',
-    url: '/cart/{id}/{qty}/{siz}',
-      views: {
-          'details@items': {
-            templateUrl: 'src/template/cart.template.html',
-            controller: 'CartController as cartCtrl',
-          }
-        },
-        resolve: {
-          items: function(ShopDataService, $stateParams) {
-            return ShopDataService.getCartItems($stateParams.id, $stateParams.qty, $stateParams.siz);
-          }
-        }
-  }
-
   var checkout = {
     name: 'checkout',
     // parent: 'home',
     url: '/checkout',
-    params: { basket: null },
+    // params: { basket: null },
     views: {
          'basket@': {
           templateUrl: 'src/template/checkout.template.html',
@@ -64,9 +47,11 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
         }
       },
       resolve: {
-                  basketitems: function(ShopDataService, $stateParams) {
-                    console.log("basket in route: "+$stateParams.basket);
-                    return ShopDataService.CheckoutItems($stateParams.basket);
+                  // basketitems: function(ShopDataService, $stateParams) {
+                  //   console.log("basket in route: "+$stateParams.basket);
+                  //   return ShopDataService.CheckoutItems($stateParams.basket);
+                    cart: function(ShopDataService) {
+                    return ShopDataService.CheckoutItems();
                   }
                 }
   }
@@ -110,7 +95,6 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state(home)
   .state(items)
-  .state(itemsCart)
   .state(checkout)
   .state(emailconfirmed)
   .state(passwordconfirmed)

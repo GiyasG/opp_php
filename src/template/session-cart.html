@@ -7,7 +7,7 @@
         <p><label>Items: </label>{{item.quantity}}</p>
   </div>
   <div>
-    <a ui-sref="items.cart({id:'{{item.id}}'})" class="btn btn-block">Empty cart</a>
+    <a ng-click="hCtrl.emptyCart()" class="btn btn-block">Empty cart</a>
   </div>
   <div>
     <a ui-sref="checkout({basket: hCtrl.isloggedin[1].items})" class="btn btn-block">Checkout</a>

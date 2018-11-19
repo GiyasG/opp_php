@@ -5,7 +5,7 @@
   .component('checkout', {
     templateUrl: 'src/template/checkout.template.html',
     bindings: {
-      basketitems: '<'
+      cart: '<'
         }
   });
 

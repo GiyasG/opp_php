@@ -231,6 +231,20 @@ $scope.registerForm = function() {
         });
       };
 
+// *************************************** //
+hCtrl.emptyCart = function () {
+$http({
+      method  : 'POST',
+      url     : 'php/emptyCart.php'
+       })
+    .then(function(response) {
+        hCtrl.isloggedin[1].items = response.data.cart;
+        $scope.showCart = false;
+        return response.data.cart;
+    });
+  };
+
+
 // ***************************************** //
           $scope.openloginForm = function() {
             // console.log("Clicked open");

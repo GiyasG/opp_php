@@ -2,11 +2,10 @@
   'use strict';
   angular.module('ShopApp')
   .controller('CheckoutController', CheckoutController);
-  CheckoutController.$inject = ['basketitems'];
-  function CheckoutController(basketitems) {
+  CheckoutController.$inject = ['cart'];
+  function CheckoutController(cart) {
     var bCtrl = this;
-    bCtrl.basketitems = basketitems;
-    console.log("bCtrl: "+bCtrl.basketitems);
-    console.log(bCtrl.basketitems);
+    bCtrl.cart = cart;
+    console.log("bCtrl: "+bCtrl.cart[0].description);
   }
 })();
