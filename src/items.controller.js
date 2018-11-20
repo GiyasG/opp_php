@@ -77,8 +77,8 @@
            })
         .then(function(response) {
             itemsCtrl.items[1].cart = response.data.cart;
-            console.log(response.data.cart);
-            // itemsCtrl.qt = 0;
+            // console.log(response.data.cart);
+            itemsCtrl.qt = 0;
             return response.data.cart;
         });
       };

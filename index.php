@@ -9,7 +9,8 @@
 
 <script src="lib/angular.min.js"></script>
 <script src="lib/angular-ui-router.min.js"></script>
-<!-- <script src="lib/angular-route.min.js"></script> -->
+<script src="lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<!-- <script src="lib/ui-bootstrap-0.11.2.min.js"></script> -->
 
 <script src="lib/jquery.min.js"></script>
 
@@ -20,6 +21,7 @@
 <script src="src/shopdata.service.js"></script>
 
 <script src="src/home.controller.js"></script>
+<script src="src/modalinstance.controller.js"></script>
 
 <script src="src/items.component.js"></script>
 <script src="src/items.controller.js"></script>
@@ -35,6 +37,7 @@
 
 <script src="src/changepassword.component.js"></script>
 <script src="src/changepassword.controller.js"></script>
+
 
 <script src="src/routes.js"></script>
 

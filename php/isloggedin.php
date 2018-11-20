@@ -18,12 +18,6 @@ if (isset($_SESSION['cart'])) {
       $outp2 .= '{"name":"'.$rs["sname"].'",';
       $outp2 .= '"description":"'.$rs["sdescription"].'",';
       $outp2 .= '"price":"'.$rs["sprice"].'",';
-      // for ($i=39; $i < 45; $i++) {
-      //   $outp .= '"'.$i.'all":"'.$rs["s".$i."_all"].'",';
-      //   $outp .= '"'.$i.'reserv":"'.$rs["s".$i."_reserved"].'",';
-      //   $outp .= '"'.$i.'forsale":"'.$rs["s".$i."_forsale"].'",';
-      //   $outp .= '"'.$i.'sold":"'.$rs["s".$i."_sold"].'",';
-      // }
       $outp2 .= '"size":"'.$rs["size"].'",';
       $outp2 .= '"quantity":"'.$rs["quantity"].'",';
       $outp2 .= '"image":"'.$rs["simage"].'"}';

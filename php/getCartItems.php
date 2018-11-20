@@ -56,24 +56,15 @@ if ($si == null or (!isset($postdata->qty))) {
         $outp .= '{"name":"'.$rs["sname"].'",';
         $outp .= '"description":"'.$rs["sdescription"].'",';
         $outp .= '"price":"'.$rs["sprice"].'",';
-        // for ($i=39; $i < 45; $i++) {
-        //   $outp .= '"'.$i.'all":"'.$rs["s".$i."_all"].'",';
-        //   $outp .= '"'.$i.'reserv":"'.$rs["s".$i."_reserved"].'",';
-        //   $outp .= '"'.$i.'forsale":"'.$rs["s".$i."_forsale"].'",';
-        //   $outp .= '"'.$i.'sold":"'.$rs["s".$i."_sold"].'",';
-        // }
         $outp .= '"size":"'.$rs["size"].'",';
         $outp .= '"quantity":"'.$rs["quantity"].'",';
         $outp .= '"image":"'.$rs["simage"].'"}';
     }
 
     $outp ='{"cart":['.$outp.']}';
-    // echo gettype($outp);
   }
   elseif (!isset($idfound)  and $qt != '' and $sz != '')
   {
-    // echo $idfound;
-
     $db = new Database();
     $db->connect();
     $db->setName('SET NAMES \'utf8\'');
@@ -86,19 +77,12 @@ if ($si == null or (!isset($postdata->qty))) {
     $res[0]['size'] = $sz;
 
     $merged = array_merge($_SESSION['cart'], $res);
-    // print_r($merged);
     $outp = "";
     foreach ($merged as $rs) {
         if ($outp != "") {$outp .= ",";}
         $outp .= '{"name":"'.$rs["sname"].'",';
         $outp .= '"description":"'.$rs["sdescription"].'",';
         $outp .= '"price":"'.$rs["sprice"].'",';
-        // for ($i=39; $i < 45; $i++) {
-        //   $outp .= '"'.$i.'all":"'.$rs["s".$i."_all"].'",';
-        //   $outp .= '"'.$i.'reserv":"'.$rs["s".$i."_reserved"].'",';
-        //   $outp .= '"'.$i.'forsale":"'.$rs["s".$i."_forsale"].'",';
-        //   $outp .= '"'.$i.'sold":"'.$rs["s".$i."_sold"].'",';
-        // }
         $outp .= '"size":"'.$rs["size"].'",';
         $outp .= '"quantity":"'.$rs["quantity"].'",';
         $outp .= '"image":"'.$rs["simage"].'"}';
@@ -108,32 +92,35 @@ if ($si == null or (!isset($postdata->qty))) {
     $_SESSION['cart'] = $merged;
 
   } elseif (isset($idfound) and $qt != '' and $sz != '') {
-    // echo $idfound;
     $_SESSION['cart'][$subarray_number]['quantity'] += $qt;
-    // print_r($_SESSION['cart']);
     $outp = "";
     foreach ($_SESSION['cart'] as $rs) {
         if ($outp != "") {$outp .= ",";}
         $outp .= '{"name":"'.$rs["sname"].'",';
         $outp .= '"description":"'.$rs["sdescription"].'",';
         $outp .= '"price":"'.$rs["sprice"].'",';
-        // for ($i=39; $i < 45; $i++) {
-        //   $outp .= '"'.$i.'all":"'.$rs["s".$i."_all"].'",';
-        //   $outp .= '"'.$i.'reserv":"'.$rs["s".$i."_reserved"].'",';
-        //   $outp .= '"'.$i.'forsale":"'.$rs["s".$i."_forsale"].'",';
-        //   $outp .= '"'.$i.'sold":"'.$rs["s".$i."_sold"].'",';
-        // }
         $outp .= '"size":"'.$rs["size"].'",';
         $outp .= '"quantity":"'.$rs["quantity"].'",';
         $outp .= '"image":"'.$rs["simage"].'"}';
     }
     $outp ='{"cart":['.$outp.']}';
   }
+  if (isset($_SESSION['cart']) and $qt === 0) {
+    $outp = "";
+    foreach ($_SESSION['cart'] as $rs) {
+        if ($outp != "") {$outp .= ",";}
+        $outp .= '{"name":"'.$rs["sname"].'",';
+        $outp .= '"description":"'.$rs["sdescription"].'",';
+        $outp .= '"price":"'.$rs["sprice"].'",';
+        $outp .= '"size":"'.$rs["size"].'",';
+        $outp .= '"quantity":"'.$rs["quantity"].'",';
+        $outp .= '"image":"'.$rs["simage"].'"}';
+    }
+    $outp ='{"cart":['.$outp.']}';
+  } elseif (!isset($_SESSION['cart']) and $qt === 0) {
+    $outp ='{"cart":null}';
+  }
 
-    // if (!isset($outp) and !isset($_SESSION['cart'])) {
-    //   $outp = "";
-    // }
 echo ($outp);
-
 
 ?>

@@ -1,4 +1,4 @@
 (function () {
 'use strict'
-angular.module('ShopApp', ['ui.router', 'data']);
+angular.module('ShopApp', ['ui.router', 'data', 'ui.bootstrap']);
 })();

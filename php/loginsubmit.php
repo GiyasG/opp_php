@@ -8,13 +8,6 @@ if ( $_POST ) {
         $postdata = json_decode($key);
     }
 
-    // $pos = strrpos($postdata->em, "-dot-");
-    // if($pos !== false)
-    // {
-    //     $postdata->em = substr_replace($postdata->em, ".", $pos, strlen("_"));
-    // }
-
-    // echo ("em- ".$postdata->em." ps- ".$postdata->ps." rm- ".$postdata->rm);
 }
 
 require '../vendor/autoload.php';

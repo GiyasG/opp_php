@@ -9,11 +9,36 @@
   .directive('sessionRegister', SessionRegisterDirective)
   .directive('forgottenPassword', ForgottenPassordDirective);
 
-  HomeController.$inject = ['$scope', '$http', 'isloggedin'];
+  HomeController.$inject = ['$scope', '$http', 'isloggedin', '$uibModal', '$log'];
 
-    function HomeController($scope, $http, isloggedin) {
+    function HomeController($scope, $http, isloggedin, $uibModal, $log) {
 
         var hCtrl = this;
+
+        //****************** MODAL ****************//
+        hCtrl.data = "<session-login></session-login>";
+
+          hCtrl.open = function () {
+            var modalInstance = $uibModal.open({
+              // animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'src/template/myModalContent.html',
+              controller: 'ModalInstanceController',
+              controllerAs: 'hCtrl',
+              // size: size,
+              resolve: {
+                data: function () {
+                  return hCtrl.data;
+                }
+              }
+            });
+
+            modalInstance.result.then(function () {
+              alert("now I'll close the modal");
+            });
+          };
+        //*****************************************//
 
         hCtrl.isloggedin = isloggedin;
         if (hCtrl.isloggedin[0].isIn === false) {

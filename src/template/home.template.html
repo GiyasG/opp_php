@@ -16,8 +16,17 @@
   </button>
 </div>
 
+<div class="modal-demo">
+    <button type="button"
+    class="btn btn-default"
+    ng-click="hCtrl.open()">Open me!</button>
+</div>
 <session-cart ng-if="showCart"></session-cart>
+<div class="wrapper">
+<div class="container center-align">
 <session-login ng-if="showLoginForm"></session-login>
+</div>
+</div>
 <forgotten-password ng-if="showPasswordForm"></forgotten-password>
 
 <session-register ng-if="showRegisterForm"></session-register>

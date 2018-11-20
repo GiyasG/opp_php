@@ -160,3 +160,30 @@ div .well {
 .forgot_password:hover {
 	cursor: pointer;
 }
+
+.wrapper {
+  // background: green;
+  padding: 20px 0;
+}
+
+.box {
+  border-radius: 10px;
+  margin-bottom: 30px;
+  // background: #fff;
+  // padding: 10px;
+  // color: #000;
+}
+
+.center-align {
+  letter-spacing: -4px;
+  text-align: center;
+  font-size: 0;
+}
+
+.center-align [class*='col-'] {
+  display: inline-block;
+  vertical-align: top;
+  letter-spacing: 0;
+  font-size: 14px;
+  float: none;
+}
