@@ -161,6 +161,21 @@ div .well {
 	cursor: pointer;
 }
 
+.register_link {
+	position: absolute;
+	left: 5px;
+	cursor: pointer;
+}
+.register_link:hover {
+	cursor: pointer;
+}
+
+.form-control {
+	width: auto;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
 .wrapper {
   // background: green;
   padding: 20px 0;

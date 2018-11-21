@@ -1,38 +1,41 @@
-<div class="row">
-
-<div class="col-md-5 well">
-
-
+<!-- <div class="row">
+<div class="col-md-5 well"> -->
   <form accept-charset="utf-8" ng-submit="registerForm()">
 	<input type="email" name="email" placeholder="Email address"
          ng-model="user.em"
+         class="form-control"
          required/>
 	<input type="password" name="password" placeholder="Password"
          ng-model="user.ps"
          ng-change="analyze(user.ps)"
          ng-style="passwordStrength"
+         class="form-control"
          required/>
   <div>
     <div ng-style="passwordStrength">{{passwordRegister}}</div>
 
   </div>
-	<input type="text" name="username" placeholder="Username (optional)"
+	<input type="text" n
+  ame="username"
+  placeholder="Username (optional)"
+  class="form-control"
   ng-model="user.un"/>
   <select ng-model="ems.emid"
           ng-options="em.emid as em.emName for em in ems"
+          class="form-control"
           required>
     <option value="" selected>Require email confirmation?</option>
 
   </select>
-	<button type="submit"
+	<!-- <button type="submit"
           class="btn btn-primary"
-          ng-disabled="disabledRegister">Register</button>
+          ng-disabled="disabledRegister">Register</button> -->
 	</form>
 
-<button class="btn btn-primary"
+<!-- <button class="btn btn-primary"
 ng-click="closeregisterForm()"
->Cancel</button>
+>Cancel</button> -->
 
   <p class="pwarnings">{{loginWarning}}</p>
-</div>
-</div>
+<!-- </div>
+</div> -->

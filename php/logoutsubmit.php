@@ -19,16 +19,14 @@ if ($key === 'logOut') {
     $outp1 ='{"isIn":true}';
   }
 
-  $outp2 = "";
   if (isset($_SESSION['cart'])) {
     $_SESSION['cart'] =array();
     unset($_SESSION['cart']);
     // var_dump($_SESSION);
     session_regenerate_id(true);
-    $outp2 ='{"items":null}';
   }
 }
-
+$outp2 ='{"items":null}';
 $outp = '{"isloggedin":['.$outp1.','.$outp2.']}';
 echo ($outp);
 ?>

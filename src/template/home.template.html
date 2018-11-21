@@ -5,32 +5,29 @@
 <a ui-sref="items">Items</a>
 </h4>
 <div class="auth_link">
-  <button class="btn btn-primary"
-  ng-click="openloginForm()"
-  ng-if="showLogin">Login
+
+  <button ng-if="showLogin"
+    class="btn btn-primary"
+    ng-click="hCtrl.open()">Login
   </button>
 
-  <button class="btn btn-primary"
-  ng-click="openregisterForm()"
-  ng-if="showLogin">Register
+  <button ng-if="!showLogin"
+  class="btn btn-primary"
+  ng-click="logoutForm()">Log out
   </button>
+
 </div>
 
-<div class="modal-demo">
-    <button type="button"
-    class="btn btn-default"
-    ng-click="hCtrl.open()">Open me!</button>
-</div>
 <session-cart ng-if="showCart"></session-cart>
-<div class="wrapper">
+
+<!-- <div class="wrapper">
 <div class="container center-align">
-<session-login ng-if="showLoginForm"></session-login>
+ <session-login ng-if="showLoginForm"></session-login>
 </div>
-</div>
+</div> -->
+<!-- <session-login ng-if="showLoginForm"></session-login>
 <forgotten-password ng-if="showPasswordForm"></forgotten-password>
+<session-register ng-if="showRegisterForm"></session-register> -->
 
-<session-register ng-if="showRegisterForm"></session-register>
-
-<session-logout ng-if="!showLogin"></session-logout>
 <div ui-view="verifyemail"></div>
 <div ui-view="changepassword"></div>
