@@ -70,7 +70,6 @@
                 // console.log($scope.rms[0].rmid);
 
                   console.log(userparams);
-
               $http({
                       method  : 'POST',
                       url     : 'php/loginsubmit.php',
@@ -138,14 +137,26 @@ if (value) {
 };
 // ***************************************** //
 $scope.registerForm = function() {
+
+  if (!$scope.user.em) {
+    $scope.loginWarning = "invalid email format";
+    return
+  } else if (!$scope.user.ps) {
+    $scope.loginWarning = "Please enter the password";
+    return
+  } else if (!$scope.ems.emid) {
+    $scope.loginWarning = "Please specify option";
+    return
+  } else {
     var regem = ($scope.user.em).replace(new RegExp('[.]', 'g'), '-dot-');
-    if ($scope.user.ps) {
     var regps = ($scope.user.ps).replace(new RegExp('[.]', 'g'), '-dot-').replace(new RegExp('\\[', 'g'), '-sqbl-');
-    }
-    if ($scope.user.un) {
-    var regun = ($scope.user.un).replace(new RegExp('[.]', 'g'), '-dot-').replace(new RegExp('\\[', 'g'), '-sqbl-');
+    if (!$scope.user.un) {
+      var regun = regem;
+    } else {
+      var regun = ($scope.user.un).replace(new RegExp('[.]', 'g'), '-dot-').replace(new RegExp('\\[', 'g'), '-sqbl-');
     }
     console.log($scope.ems.emid);
+  }
     var userparams =
       {
         em: regem,
@@ -153,7 +164,6 @@ $scope.registerForm = function() {
         un: regun,
         rm: $scope.ems.emid
       };
-
       console.log(userparams);
 
   $http({

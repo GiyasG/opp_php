@@ -10,11 +10,13 @@
 
 <select ng-model="rms.rmid"
         ng-options="rm.rmid as rm.rmName for rm in rms"
-        class="form-control">
+        class="form-control"
+        required>
   <option value="" selected>Remember me?</option>
 </select>
 
   <p class="pwarnings">{{loginWarning}}</p>
+<div class="wrapper">
   <div>
     <a class="register_link"
     ng-click="openregisterForm($event)"
@@ -25,3 +27,4 @@
       ng-click="showForgottenPassword($event)"
       >Forgotten password</a>
     </div>
+</div>

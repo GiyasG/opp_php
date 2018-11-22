@@ -15,6 +15,9 @@
 <script src="lib/jquery.min.js"></script>
 
 <script src="src/shopapp.module.js"></script>
+<script src="src/loading/loading.component.js"></script>
+<script src="src/loading/loading.interceptor.js"></script>
+
 <script src="src/data.module.js"></script>
 
 
@@ -43,7 +46,7 @@
 
 </head>
 <body>
-
+    <loading class="loading-indicator"></loading>
 <div ui-view class="container">
   <div ui-view="content"></div>
   <div ui-view="basket"></div>

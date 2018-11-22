@@ -154,7 +154,8 @@ div .well {
 
 .forgot_password {
 	position: absolute;
-	right: 5px;
+	right:20px;
+	margin: 10px;
 	cursor: pointer;
 }
 .forgot_password:hover {
@@ -163,7 +164,8 @@ div .well {
 
 .register_link {
 	position: absolute;
-	left: 5px;
+	margin: 10px;
+	left: 20px;
 	cursor: pointer;
 }
 .register_link:hover {
@@ -201,4 +203,18 @@ div .well {
   letter-spacing: 0;
   font-size: 14px;
   float: none;
+}
+
+.loading-indicator {
+    display: block;
+    width: 70px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 40%;
+    z-index: 100;
+    font-size: 1.2em;
+		z-index: 2000;
+/*    background-color: #FFF; */
 }
