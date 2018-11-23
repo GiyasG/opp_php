@@ -8,12 +8,34 @@
   .directive('sessionRegister', SessionRegisterDirective)
   .directive('forgottenPassword', ForgottenPassordDirective);
 
-  HomeController.$inject = ['$scope', '$http', 'isloggedin', '$uibModal', '$log'];
+  HomeController.$inject = ['$scope', '$http', 'isloggedin', '$uibModal', '$log', 'Upload'];
 
-    function HomeController($scope, $http, isloggedin, $uibModal, $log) {
+    function HomeController($scope, $http, isloggedin, $uibModal, $log, Upload) {
 
         var hCtrl = this;
+        //**************** File Upload *********************//
+        $scope.onFileSelect = function(file) {
 
+          // $scope.f = file;
+          // if (file && !file.$error) {
+          //     file.upload = Upload.upload({
+
+
+          console.log(file);
+            $scope.message = "";
+                $scope.upload = Upload.upload({
+                    url: 'php/upload.php',
+                    method: 'POST',
+                    file: file
+                }).success(function(data, status, headers, config) {
+                    $scope.message = data;
+                    console.log($scope.message);
+                }).error(function(data, status) {
+                    $scope.message = data;
+                });
+        };
+
+        //************************************************//
         //****************** MODAL ****************//
         hCtrl.data = false;
 
@@ -142,7 +164,6 @@ $http({
             }
           };
 };
-
 
     function SessionCartDirective () {
       return {

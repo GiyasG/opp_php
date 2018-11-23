@@ -4,6 +4,21 @@
 <a ui-sref="home">Home</a>
 <a ui-sref="items">Items</a>
 </h4>
+
+<div>
+      <h3>Profile Pic</h3>
+      <div>
+
+        <h4>Upload on file select</h4>
+        <button type="file" ngf-select="onFileSelect($file)"
+                accept="image/*"
+                ngf-max-height="1000"
+                ngf-max-size="1MB">Select File
+        </button>
+        <span class="errorMsg">{{message}}</span>
+      </div>
+</div>
+
 <div class="auth_link">
 
   <button ng-if="showLogin"

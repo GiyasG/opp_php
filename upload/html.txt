@@ -1,0 +1,8 @@
+<div>
+      <h3>Profile Pic</h3>
+      <div>
+        <input type="file" name="image" id="image" ng-file-select="onFileSelect($files)">
+        <br/>
+        <span class="errorMsg">{{ message}}</span>
+      </div>
+</div>

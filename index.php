@@ -11,6 +11,9 @@
 <script src="lib/angular-ui-router.min.js"></script>
 <script src="lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
 <!-- <script src="lib/ui-bootstrap-0.11.2.min.js"></script> -->
+<script src="lib/ng-file-upload-shim.min.js"></script>
+<script src="lib/ng-file-upload.min.js"></script>
+
 
 <script src="lib/jquery.min.js"></script>
 
