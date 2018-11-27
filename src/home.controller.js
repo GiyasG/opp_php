@@ -13,20 +13,32 @@
     function HomeController($scope, $http, isloggedin, $uibModal, $log, Upload) {
 
         var hCtrl = this;
+        //**************** Data for Dbase Upload ********************//
+          $scope.fElements = {};
+          $scope.fElements.sizes =
+          {
+            "i39" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+            "i40" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+            "i41" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+            "i42" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+            "i43" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+            "i44" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+            "i45" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+          };
+          console.log($scope.fElements.sizes);
+        //**********************************************************//
         //**************** File Upload *********************//
         $scope.onFileSelect = function(file) {
-
-          // $scope.f = file;
-          // if (file && !file.$error) {
-          //     file.upload = Upload.upload({
-
 
           console.log(file);
             $scope.message = "";
                 $scope.upload = Upload.upload({
                     url: 'php/upload.php',
                     method: 'POST',
-                    file: file
+                    file: file,
+                    data: {
+                              'item': $scope.fElements
+                          }
                 }).success(function(data, status, headers, config) {
                     $scope.message = data;
                     console.log($scope.message);

@@ -1,4 +1,5 @@
 <?php
+// print_r($_POST['item']);
 // $dirpath = dirname(getcwd());
 // echo ($dirpath);
 if(isset($_FILES['file'])){
@@ -8,23 +9,26 @@ if(isset($_FILES['file'])){
     $file_tmp =$_FILES['file']['tmp_name'];
     $file_type=$_FILES['file']['type'];
     $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-    $extensions = array("jpeg","jpg","png");
+    $extensions = array("jpeg","jpg","png","pdf");
     if(in_array($file_ext,$extensions )=== false){
-         $errors[]="image extension not allowed, please choose a JPEG or PNG file.";
+         $errors[]="File extension not allowed, please choose a JPEG or PNG file.";
     }
     if($file_size > 1097152){
         $errors[]='File size cannot exceed 1 MB';
     }
+    if(file_exists('../img/'.$file_name)) {
+      $errors[]='File with that name already exists';
+    }
     if(empty($errors)==true){
         move_uploaded_file($file_tmp,"../img/".$file_name);
-        // echo " uploaded file: " . "../img/" . $file_name;
+        echo 'File uploaded successfully';
     }else{
-        print_r($errors);
+        print_r($errors[0]);
     }
 }
 else{
     $errors= array();
     $errors[]="No image found";
-    print_r($errors);
+    print_r($errors[0]);
 }
 ?>
