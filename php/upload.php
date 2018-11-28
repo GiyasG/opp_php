@@ -1,7 +1,6 @@
 <?php
 // print_r($_POST['item']);
-// $dirpath = dirname(getcwd());
-// echo ($dirpath);
+
 if(isset($_FILES['file'])){
     $errors= array();
     $file_name = $_FILES['file']['name'];
@@ -17,10 +16,11 @@ if(isset($_FILES['file'])){
         $errors[]='File size cannot exceed 1 MB';
     }
     if(file_exists('../img/'.$file_name)) {
-      $errors[]='File with that name already exists';
+      $errors[]='File '.$file_name.' already exists';
     }
     if(empty($errors)==true){
-        move_uploaded_file($file_tmp,"../img/".$file_name);
+        $currentDate = date('ymdhms');
+        move_uploaded_file($file_tmp,"../img/".$currentDate.$file_name);
         echo 'File uploaded successfully';
     }else{
         print_r($errors[0]);

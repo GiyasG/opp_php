@@ -1,8 +1,8 @@
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">{{hCtrl.title}}</h3>
+    <h3 class="modal-title" id="modal-title">{{mCtrl.title}}</h3>
 </div>
 <div ng-if="!showLogin" class="modal-body" id="modal-body">
-<!-- {{hCtrl.data}} -->
+<!-- {{mCtrl.data}} -->
   <session-login ng-if="showModalLogin"></session-login>
   <forgotten-password ng-if="showModalForgotten"></forgotten-password>
   <session-register ng-if="showModalRegister"></session-register>
@@ -26,6 +26,6 @@
 
     <button class="btn btn-warning"
     type="button"
-    ng-click="hCtrl.cancel()">
+    ng-click="mCtrl.CloseModal()">
     Cancel</button>
 </div>

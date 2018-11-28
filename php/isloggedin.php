@@ -7,8 +7,14 @@ require '../vendor/autoload.php';
   $outp1 = "";
   if ($auth->isLoggedIn()) {
     $outp1 ='{"isIn":true}';
+    if ($auth->hasRole(\Delight\Auth\Role::ADMIN)) {
+      $outp3 = '{"Role": "Admin"}';
+    } else {
+      $outp3 = '{"Role": null}';
+    }
   } else {
     $outp1 ='{"isIn":false}';
+    $outp3 = '{"Role": null}';
   }
 
 if (isset($_SESSION['cart'])) {
@@ -26,6 +32,6 @@ if (isset($_SESSION['cart'])) {
 } else {
   $outp2 = '{"items": null}';
 }
-$outp = '{"isloggedin":['.$outp1.','.$outp2.']}';
+$outp = '{"isloggedin":['.$outp1.','.$outp2.','.$outp3.']}';
 echo ($outp);
 ?>

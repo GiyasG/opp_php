@@ -58,10 +58,11 @@
               ariaDescribedBy: 'modal-body',
               templateUrl: 'src/template/myModalContent.html',
               controller: 'ModalInstanceController',
-              controllerAs: 'hCtrl',
+              controllerAs: 'mCtrl',
               // size: size,
               resolve: {
                 data: function () {
+                  console.log(hCtrl.data);
                   return hCtrl.data;
                 }
               }
@@ -69,12 +70,18 @@
 
             modalInstance.result.then(function () {
               $scope.showLogin = false;
-              alert($scope.showLogin);
+              $scope.hasRoleAdmin = true;
+              // alert($scope.showLogin);
             });
           };
         //*****************************************//
-
+        $scope.hasRoleAdmin = false;
         hCtrl.isloggedin = isloggedin;
+        if (hCtrl.isloggedin[2].Role != null) {
+          $scope.hasRoleAdmin = true;
+        } else {
+          $scope.hasRoleAdmin = false;
+        }
         if (hCtrl.isloggedin[0].isIn === false) {
           $scope.showLogin = true;
           $scope.showRegister = true;
@@ -112,6 +119,7 @@
                 .then(function(response) {
                   if (response.data.isloggedin[0].isIn === false) {
                     $scope.showLogin = true;
+                    $scope.hasRoleAdmin = false;
                   }
                     return response.data;
                   });

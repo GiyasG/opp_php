@@ -66,6 +66,6 @@ catch (\Delight\Auth\TooManyRequestsException $e) {
 }
 }
 
-  $outp ='{"sitems":['.$outp.']}';
+  $outp ='{"isloggedin":['.$outp.']}';
   echo ($outp);
 ?>

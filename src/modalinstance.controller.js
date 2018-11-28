@@ -6,29 +6,32 @@
 
   ModalInstanceController.$inject = ['$uibModalInstance', 'data', '$scope', '$http'];
   function ModalInstanceController($uibModalInstance, data, $scope, $http) {
-    var hCtrl = this;
-        hCtrl.data = data;
+    var mCtrl = this;
+        mCtrl.data = data;
 
         if ($scope.showLogin) {
-          hCtrl.title = "You are already logged in";
+          mCtrl.title = "You are already logged in";
         } else {
-          hCtrl.title = "Loggining into account";
+          mCtrl.title = "Loggining into account";
         }
-        console.log(hCtrl.data);
 
         $scope.showModalLogin = true;
         $scope.showModalRegister = false;
         $scope.showModalForgotten = false;
 
-        $scope.rms = [
-                      {rmid: 1, rmName: 'Remember (keep logged in)? — No'},
-                      {rmid: 2, rmName: 'Remember (keep logged in)? — Yes'}
-                    ];
+        $scope.rms = {
+          model: null,
+          availableOptions: [
+            {id: "1", Name: 'Remember (keep logged in)? — Yes'},
+            {id: "2", Name: 'Remember (keep logged in)? — No'}
+          ]
+         };
+
         $scope.user = {};
 // ***************************************** //
         $scope.showForgottenPassword = function(ev) {
           ev.preventDefault();
-          hCtrl.title = "Sending request for forgotten password";
+          mCtrl.title = "Sending request for forgotten password";
           $scope.showModalLogin = false;
           $scope.showModalForgotten = true;
           $scope.showModalRegister = false;
@@ -37,7 +40,7 @@
 // ***************************************** //
           $scope.openregisterForm = function(ev) {
             ev.preventDefault();
-            hCtrl.title = "Registering a new account";
+            mCtrl.title = "Registering a new account";
             $scope.showModalLogin = false;
             $scope.showModalForgotten = false;
             $scope.showModalRegister = true;
@@ -52,8 +55,9 @@
                 return
               } else if (!$scope.user.ps) {
                 $scope.loginWarning = "Please enter the password";
+                console.log($scope.rms.model);
                 return
-              } else if (!$scope.rms[0].rmid) {
+              } else if (!$scope.rms.model) {
                 $scope.loginWarning = "Please specify 'remember me' option";
                 return
               }
@@ -65,9 +69,8 @@
                 {
                   em: regem,
                   ps: regps,
-                  rm: $scope.rms[0].rmid
+                  rm: $scope.rms.model
                 };
-                // console.log($scope.rms[0].rmid);
 
                   console.log(userparams);
               $http({
@@ -77,17 +80,21 @@
                       headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
                        })
                     .then(function(response) {
-                        if (response.data.sitems[0].isLoggedIn === "1") {
+                        if (response.data.isloggedin[0].isLoggedIn == "1") {
                           $scope.showLogin = true;
                           $scope.showLoginForm = false;
+                          $scope.hasRoleAdmin = true;
                           $scope.user = {};
+                          console.log("Hello"+$scope.hasRoleAdmin);
                           $uibModalInstance.close();
                         } else {
+                          $scope.hasRoleAdmin = false;
                           $scope.showLogin = false;
-                          $scope.loginWarning = response.data.sitems[0].Error;
+                          $scope.loginWarning = response.data.isloggedin[0].Error;
+                          console.log("Bye"+$scope.hasRoleAdmin);
                           console.log($scope.loginWarning);
                         }
-                        return response.data.sitems;
+                        return response.data.isloggedin;
                     });
                   };
 // ***************************************** //
@@ -222,18 +229,9 @@ $http({
         return response.data.info;
     });
   };
-
-// ***************************************** //
-
-      //   hCtrl.ok = function () {
-      //   //{...}
-      //   // alert("You clicked the ok button.");
-      //   $uibModalInstance.close();
-      // };
-
-        hCtrl.cancel = function () {
+//******************************************************************//
+        mCtrl.CloseModal = function () {
           $scope.loginWarning = "";
-        //{...}
         // alert("You clicked the cancel button.");
         $uibModalInstance.dismiss('cancel');
       };

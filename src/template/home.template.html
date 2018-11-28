@@ -4,7 +4,7 @@
 <a ui-sref="home">Home</a>
 <a ui-sref="items">Items</a>
 </h4>
-
+<div ng-show="hasRoleAdmin">
       <div class="col-md-2">
         <button ngf-select ng-model="File"
                 accept="image/*"
@@ -13,7 +13,7 @@
         </button>
       </div>
       <div class="col-md-2">
-        <img class="imgfit" src={{File.$ngfBlobUrl}}>
+        <img class="imgfit" ng-src={{File.$ngfBlobUrl}}>
       </div>
       <div class="well col-md-7">
           <span>დასახელება</span>
@@ -113,9 +113,11 @@
       </div>
 </div>
 
-<div class="col-md-12 text-center">
-<button ng-click="onFileSelect(File)">Save
-</button>
+    <div class="col-md-12 text-center">
+      <button ng-click="onFileSelect(File)">Save
+      </button>
+    </div>
+
 </div>
 <div class="auth_link">
 
