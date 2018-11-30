@@ -44,6 +44,8 @@
 <script src="src/changepassword.component.js"></script>
 <script src="src/changepassword.controller.js"></script>
 
+<script src="src/admin.component.js"></script>
+<script src="src/admin.controller.js"></script>
 
 <script src="src/routes.js"></script>
 
@@ -53,6 +55,7 @@
 <div ui-view class="container">
   <div ui-view="content"></div>
   <div ui-view="basket"></div>
+  <div ui-view="admin"></div>
 </div>
 
 

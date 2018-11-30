@@ -91,6 +91,24 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
   }
 
+  var admin = {
+    name: 'admin',
+    // parent: 'home',
+    url: '/admin',
+    // params: { basket: null },
+    views: {
+         'admin@': {
+          templateUrl: 'src/template/admin.template.html',
+          controller: 'AdminController as aCtrl',
+        }
+      },
+      resolve: {
+        items: ['ShopDataService', function (ShopDataService) {
+          return ShopDataService.getAllItems();
+        }]
+      }
+  }
+
   $urlRouterProvider.otherwise('/');
   $stateProvider
   .state(home)
@@ -98,5 +116,6 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state(checkout)
   .state(emailconfirmed)
   .state(passwordconfirmed)
+  .state(admin)
  }
 })();
