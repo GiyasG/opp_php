@@ -5,8 +5,11 @@
 <span class="glyphicon glyphicon-triangle-right"></span>
 <span>Admin</span>
 </h4>
+<h4>Add, update or delete items</h4>
+<button class="btn btn-success" ng-click="AddItem()">Add new item</button>
+<hr>
 
-<admin-add></admin-add>
+<admin-add ng-if="hasRoleAdmin && AddNewRecord"></admin-add>
 
 <div ng-repeat="item in aCtrl.items[0].all" ng-init="sectionIndex = $index">
 	<div ng-if="sectionIndex != updateIndex" class="row">
@@ -14,7 +17,7 @@
     <div class="col-md-2">
       <button class="btn btn-success" ng-click="UpdateItem(item.id, sectionIndex)">Update</button>
       <button class="btn btn-warning" ng-click="DeleteItem(item.id)">Delete</button>
-      <p>{{sectionIndex}}</p>
+      <!-- <p>{{sectionIndex}}</p> -->
 		</div>
 
         <div class="col-md-2 cell">

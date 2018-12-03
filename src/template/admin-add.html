@@ -1,4 +1,4 @@
-<div ng-show="hasRoleAdmin">
+<div class="row well">
       <div class="col-md-2">
         <button ngf-select ng-model="File"
                 accept="image/*"
@@ -109,6 +109,8 @@
 
     <div class="col-md-12 text-center">
       <button class="btn btn-success" ng-click="onFileSelect(File)">Save
+      </button>
+      <button class="btn btn-success" ng-click="CloseAdd()">Cancel
       </button>
     </div>
 

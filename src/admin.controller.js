@@ -14,8 +14,10 @@
         var aCtrl = this;
         aCtrl.items = items;
         $scope.updateIndex = null;
+        $scope.AddNewRecord = false;
 
         //**************** Data for Dbase Upload ********************//
+          $scope.itemU = {};
           $scope.fElements = {};
           $scope.fElements.sizes =
           {
@@ -74,15 +76,51 @@
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded'}
                  })
               .then(function(response) {
-                  console.log(response.data.info);
-                  return response.data.info;
+                  $scope.itemU = response.data.item[0];
+                  console.log($scope.itemU);
+                  return response.data.item;
               });
 
           $scope.updateIndex = sid;
-          // $scope.ItemForUpdate = item;
-          // console.log($scope.ItemForUpdate);
+
+          //**************** File Update *********************//
+          $scope.onFileUpdate = function(file) {
+
+            console.log(file);
+              $scope.message = "";
+                  $scope.upload = Upload.upload({
+                      url: 'php/update.php',
+                      method: 'POST',
+                      file: file,
+                      data: {
+                                'item': $scope.itemU
+                            }
+                  }).success(function(data, status, headers, config) {
+                      $scope.message = data;
+                      $scope.updateIndex = null;
+                      console.log($scope.message);
+                  }).error(function(data, status) {
+                      $scope.message = data;
+                  });
+          };
+
+          //************************************************//
+
+
+
         }
 
+        $scope.AddItem = function() {
+          $scope.AddNewRecord = true;
+        }
+
+        $scope.CloseAdd = function() {
+          $scope.AddNewRecord = false;
+        }
+
+        $scope.CancelUpdate = function() {
+          $scope.updateIndex = null;
+        }
     };
 
     function AdminAddDirective () {
@@ -94,7 +132,7 @@
     function AdminUpdateDirective () {
       return {
         templateUrl: 'src/template/admin-update.html'
-        }
+                }
       }
 
 

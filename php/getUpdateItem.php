@@ -23,10 +23,11 @@ if (isset($postdata->id)) {
     $outp = "";
       foreach ($res as $rs) {
           if ($outp != "") {$outp .= ",";}
-          $outp .= '{"name":"'.$rs["sname"].'",';
+          $outp .= '{"id":"'.$rs["id"].'",';
+          $outp .= '"name":"'.$rs["sname"].'",';
           $outp .= '"description":"'.$rs["sdescription"].'",';
           $outp .= '"price":"'.$rs["sprice"].'",';
-          for ($i=39; $i<44; $i++) {
+          for ($i=39; $i<46; $i++) {
             $outp .= '"size'.$i.'all":"'.$rs["s".$i."_all"].'",';
             $outp .= '"size'.$i.'reserved":"'.$rs["s".$i."_reserved"].'",';
             $outp .= '"size'.$i.'forsale":"'.$rs["s".$i."_forsale"].'",';
@@ -35,7 +36,7 @@ if (isset($postdata->id)) {
           $outp .= '"image":"'.$rs["simage"].'"}';
       }
 
-      $outp ='{"info":['.$outp.']}';
+      $outp ='{"item":['.$outp.']}';
     echo ($outp);
 
   }
