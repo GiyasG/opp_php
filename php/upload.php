@@ -4,6 +4,31 @@ if (isset($_POST['item'])) {
   $items = $_POST['item'];
   // print_r($items);
 }
+if(!isset($_FILES['file'])){
+  $outp2 = '{"message": "No image selected"}';
+  $outp1 = '{"newitem": "null"}';
+  $outp  = '{"info":['.$outp1.','.$outp2.']}';
+  echo ($outp);
+} elseif (!isset($items['sname'])) {
+  $outp2 = '{"message": "Please fill დასახელება field"}';
+  $outp1 = '{"newitem": "null"}';
+  $outp  = '{"info":['.$outp1.','.$outp2.']}';
+  echo ($outp);
+  return;
+} elseif (!isset($items['sdescription'])) {
+  $outp2 = '{"message": "Please fill აღწერა field"}';
+  $outp1 = '{"newitem": "null"}';
+  $outp  = '{"info":['.$outp1.','.$outp2.']}';
+  echo ($outp);
+  return;
+} elseif (!isset($items['sprice'])) {
+  $outp2 = '{"message": "Please fill ფასი field"}';
+  $outp1 = '{"newitem": "null"}';
+  $outp  = '{"info":['.$outp1.','.$outp2.']}';
+  echo ($outp);
+  return;
+}
+
 if(isset($_FILES['file'])){
     $errors= array();
     $file_name = $_FILES['file']['name'];
@@ -25,16 +50,19 @@ if(isset($_FILES['file'])){
         $currentDate = date('ymdhms');
         $newFileName = $currentDate.$file_name;
         move_uploaded_file($file_tmp,"../img/".$newFileName);
-        toDbase($items, $newFileName);
-        echo 'File uploaded successfully';
+        $sid = toDbase($items, $newFileName);
+
+        if (isset($sid)) {
+          $items['id'] = $sid[0];
+        }
+        $items['simage'] = '../img/'.$newFileName;
+        $outp2 = '{"message": "The record and the image uploaded successfully"}';
+        $outp1 = '{"newitem":['.json_encode($items).']}';
+        $outp  = '{"info":['.$outp1.','.$outp2.']}';
+        echo ($outp);
     }else{
         print_r($errors[0]);
     }
-}
-else{
-    $errors= array();
-    $errors[]="No image found";
-    print_r($errors[0]);
 }
 
 function toDbase($items, $newFileName) {
@@ -56,21 +84,13 @@ function toDbase($items, $newFileName) {
   // Table name, column names and respective values
   // echo $db->getSql();
   $res = $db->getResult();
-  // print_r($res);
+  // print_r($res[0]);
   if (!$res)
   {
   die('Cant connect: ' . mysql_error());
-  }
-  else {
-    // $my_file = '../img/'.$newFileName;
-    // $handle = fopen($my_file, 'w') or die('Cannot open file:  '.$my_file); //implicitly creates file
-    //     if ($handle) {
-    //     file_put_contents($my_file, file_get_contents($_FILES["userImage"]["tmp_name"]));
-    //     echo 'Uploaded';
-    //    } else {
-        echo 'Uploaded';
-       // }
-      }
+} else {
+  return $res;
+}
 $db->disconnect();
 }
 

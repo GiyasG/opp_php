@@ -29,12 +29,12 @@
             "i44" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
             "i45" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
           };
-          console.log($scope.fElements.sizes);
+          console.log(aCtrl.items[0].all.length);
+          console.log(aCtrl.items[0].all);
         //**********************************************************//
         //**************** File Upload *********************//
         $scope.onFileSelect = function(file) {
-
-          console.log(file);
+          // console.log(file);
             $scope.message = "";
                 $scope.upload = Upload.upload({
                     url: 'php/upload.php',
@@ -45,7 +45,33 @@
                           }
                 }).success(function(data, status, headers, config) {
                     $scope.message = data;
-                    console.log($scope.message);
+
+
+                    if ($scope.message.info[0].newitem[0].id) {
+
+                      var newitem = {};
+                      newitem.name = $scope.message.info[0].newitem[0].sname;
+                      newitem.description = $scope.message.info[0].newitem[0].sdescription;
+                      newitem.price = $scope.message.info[0].newitem[0].sprice;
+                      newitem.image = $scope.message.info[0].newitem[0].simage;
+                      newitem.id = $scope.message.info[0].newitem[0].id;
+
+                      aCtrl.items[0].all.push(newitem);
+
+                      console.log($scope.message.info[0].newitem[0].id);
+                      $scope.AddNewRecord = false;
+                      $scope.fElements = {};
+                      $scope.fElements.sizes =
+                      {
+                        "i39" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                        "i40" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                        "i41" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                        "i42" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                        "i43" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                        "i44" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                        "i45" : {"all": "0", "reserved": "0", "forsale": "0", "sold": "0"},
+                      };
+                    }
                 }).error(function(data, status) {
                     $scope.message = data;
                 });
@@ -64,11 +90,14 @@
                  })
               .then(function(response) {
                   console.log(response.data.info);
+                  var rid = aCtrl.items[0].all.findIndex(x => x.id === id);
+                  aCtrl.items[0].all.splice(rid, 1);
                   return response.data.info;
               });
         };
 
         $scope.UpdateItem = function (id, sid) {
+          $scope.message = "";
           $http({
                 method  : 'POST',
                 url     : 'php/getUpdateItem.php',
@@ -86,7 +115,7 @@
           //**************** File Update *********************//
           $scope.onFileUpdate = function(file) {
 
-            console.log(file);
+            // console.log(file);
               $scope.message = "";
                   $scope.upload = Upload.upload({
                       url: 'php/update.php',
@@ -99,6 +128,25 @@
                       $scope.message = data;
                       $scope.updateIndex = null;
                       console.log($scope.message);
+
+                      var uitem = {};
+                      uitem.name = $scope.message.info[0].updateitem[0].name;
+                      uitem.description = $scope.message.info[0].updateitem[0].description;
+                      uitem.price = $scope.message.info[0].updateitem[0].price;
+                      uitem.image = $scope.message.info[0].updateitem[0].image;
+                      uitem.id = $scope.message.info[0].updateitem[0].id;
+
+                      // console.log(newitem);
+                      var rid = aCtrl.items[0].all.findIndex(x => x.id === $scope.itemU.id);
+                      aCtrl.items[0].all[rid] = uitem;
+                      console.log(aCtrl.items[0].all);
+                      console.log(rid);
+
+                      // aCtrl.items[0].all.push(updateitem);
+                      // $scope.itemU = uitem;
+                      // console.log($scope.itemU);
+
+
                   }).error(function(data, status) {
                       $scope.message = data;
                   });

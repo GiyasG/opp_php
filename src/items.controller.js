@@ -27,7 +27,7 @@
     itemsCtrl.sizeClicked = sizeId+arr_ind;
     console.log(itemsCtrl.sizeClicked);
 
-      itemsCtrl.id = arr_ind;
+      itemsCtrl.id = item_id;
 
       var qty = itemsCtrl.items[0].all[arr_ind][sizeId];
       // console.log("gty: "+qty);
@@ -64,7 +64,7 @@
     itemsCtrl.addToCart = function () {
     var userparams =
       {
-        id: itemsCtrl.id+1,
+        id: itemsCtrl.id,
         qty: itemsCtrl.qt,
         siz: itemsCtrl.sz
       };

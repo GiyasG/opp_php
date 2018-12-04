@@ -1,28 +1,28 @@
 <!-- <span>{{sectionIndex}}</span> -->
 <div class="row well">
+
 <div class="col-md-2">
   <button ngf-select ng-model="File"
-          accept="image/*"
-          ngf-max-height="1000"
-          ngf-max-size="1MB">Select picture
-  </button>
-</div>
-<div class="col-md-2">
-  <img class="imgfit" ng-src="img/{{itemU.image}}">
-</div>
-<div class="well col-md-7">
-    <span>დასახელება</span>
-    <input class="form-control" type="text" ng-model="itemU.name"/>
-    <span>აღწერა</span>
-    <input class="form-control"  type="text" ng-model="itemU.description"/>
-    <span>ფასი (ლარი)</span>
-    <input class="form-control"  type="text" ng-model="itemU.price"/>
-</div>
-<div class="col-md-12">
-  <span class="pwarnings">{{message}}</span>
+  accept="image/*"
+  ngf-max-height="1000"
+  ngf-max-size="1MB">Select picture
+</button>
+  <p class="well">
+    <img class="imgfit" ng-src="img/{{itemU.image}}">
+  </p>
 </div>
 
-<div class="inputsize well text-center col-md-12">
+<div class="well col-md-4">
+  <span>დასახელება</span>
+  <input class="form-control" type="text" ng-model="itemU.name"/>
+  <span>აღწერა</span>
+  <input class="form-control"  type="text" ng-model="itemU.description"/>
+  <span>ფასი (ლარი)</span>
+  <input class="form-control"  type="text" ng-model="itemU.price"/>
+</div>
+
+
+<div class="inputsize well text-center col-md-5">
 <h5>ზომა 39</h5>
 
 <span>ყველა</span>
@@ -101,6 +101,9 @@
 </div>
 
 <hr>
+<div class="col-md-12">
+  <span class="pwarnings">{{message}}</span>
+</div>
 
 <div class="col-md-12 text-center">
 <button class="btn btn-success" ng-click="onFileUpdate(File)">Save

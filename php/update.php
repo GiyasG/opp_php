@@ -26,16 +26,27 @@ if(isset($_FILES['file'])){
         $currentDate = date('ymdhms');
         $newFileName = $currentDate.$file_name;
         move_uploaded_file($file_tmp,"../img/".$newFileName);
-        toDbase($items, $newFileName);
-        echo 'File uploaded successfully';
+        $rid = toDbase($items, $newFileName);
+
+        $items['image'] = '../img/'.$newFileName;
+        $outp2 = '{"message": "The record and the image updated successfully"}';
+        $outp1 = '{"updateitem":['.json_encode($items).']}';
+        $outp  = '{"info":['.$outp1.','.$outp2.']}';
+
+        echo ($outp);
     }else{
         print_r($errors[0]);
     }
 }
 else{
-    $errors= array();
-    $errors[]="No image found";
-    print_r($errors[0]);
+  $newFileName = $items['image'];
+  toDbase($items, $newFileName);
+
+  $outp2 = '{"message": "The record updated with the current image successfully"}';
+  $outp1 = '{"updateitem":['.json_encode($items).']}';
+  $outp  = '{"info":['.$outp1.','.$outp2.']}';
+
+  echo ($outp);
 }
 
 function toDbase($items, $newFileName) {
@@ -66,11 +77,8 @@ $db->update('stock',array('id'=>$items['id'],'sname'=>$items['name'],
 			$res = $db->getResult();
 			if (!$res)
 			{
+        echo "ERROR";
 			die('Cant connect1: ' . mysql_error());
-			}
-			else
-			{
-			echo "The record has been updated";
 			}
 
 $db->disconnect();

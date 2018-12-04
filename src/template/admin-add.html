@@ -1,15 +1,16 @@
 <div class="row well">
-      <div class="col-md-2">
-        <button ngf-select ng-model="File"
-                accept="image/*"
-                ngf-max-height="1000"
-                ngf-max-size="1MB">Select picture
-        </button>
-      </div>
-      <div class="col-md-2">
-        <img class="imgfit" ng-src={{File.$ngfBlobUrl}}>
-      </div>
-      <div class="well col-md-7">
+  <div class="col-md-2">
+    <button class="btn btn-info" ngf-select ng-model="File"
+    accept="image/*"
+    ngf-max-height="1000"
+    ngf-max-size="1MB">Select picture
+  </button>
+  <p class="text-center well">
+  <img class="imgfit" ng-src={{File.$ngfBlobUrl}}>
+  </p>
+</div>
+
+      <div class="well col-md-4">
           <span>დასახელება</span>
           <input class="form-control" type="text" ng-model="fElements.sname" value=""/>
           <span>აღწერა</span>
@@ -17,21 +18,22 @@
           <span>ფასი (ლარი)</span>
           <input class="form-control"  type="text" ng-model="fElements.sprice" value=""/>
       </div>
-      <div class="col-md-12">
-        <span class="pwarnings">{{message}}</span>
-      </div>
 
-<div class="inputsize well text-center col-md-12">
+
+    <!-- <div class="col-md-2">
+    </div> -->
+
+<div class="inputsize well text-center col-md-5">
       <h5>ზომა 39</h5>
       <div>
-      <span>ყველა</span>
-      <input ng-model="fElements.sizes.i39.all" type="text"/>
-      <span>დაცულია</span>
-      <input ng-model="fElements.sizes.i39.reserved" type="text"/>
-      <span>იყიდება</span>
-      <input ng-model="fElements.sizes.i39.forsale" type="text"/>
-      <span>გაიყიდა</span>
-      <input ng-model="fElements.sizes.i39.sold" type="text"/>
+          <span>ყველა</span>
+          <input ng-model="fElements.sizes.i39.all" type="text"/>
+          <span>დაცულია</span>
+          <input ng-model="fElements.sizes.i39.reserved" type="text"/>
+          <span>იყიდება</span>
+          <input ng-model="fElements.sizes.i39.forsale" type="text"/>
+          <span>გაიყიდა</span>
+          <input ng-model="fElements.sizes.i39.sold" type="text"/>
       </div>
 
       <h5>ზომა 40</h5>
@@ -107,6 +109,11 @@
       </div>
 </div>
 
+
+    <div class="col-md-12">
+      <span class="pwarnings">{{message.info[1].message}}</span>
+    </div>
+
     <div class="col-md-12 text-center">
       <button class="btn btn-success" ng-click="onFileSelect(File)">Save
       </button>
@@ -114,4 +121,4 @@
       </button>
     </div>
 
-</div>
+  </div>
