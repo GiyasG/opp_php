@@ -5,6 +5,16 @@ session_start();
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
+require '../vendor/autoload.php';
+  $db1 = new \PDO('mysql:dbname=auth;host=127.0.0.1;charset=utf8mb4', 'authz', 'xP9tM715UK');
+  $auth = new \Delight\Auth\Auth($db1);
+$outp3 = "";
+if (($auth->isLoggedIn()) && ($auth->hasRole(\Delight\Auth\Role::ADMIN))) {
+  $outp3 = '{"AdminIsIn":true}';
+} else {
+  $outp3 = '{"AdminIsIn":false}';
+}
+
 include('class/mysql_crud.php');
 $db = new Database();
 if (isset($db)) {
@@ -50,7 +60,7 @@ if (isset($_SESSION['cart'])) {
   // var_dump($_SESSION);
   $outp2 = '{"cart": null}';
 }
-$outp = '{"items":['.$outp1.','.$outp2.']}';
+$outp = '{"items":['.$outp1.','.$outp2.','.$outp3.']}';
 
 $db->disconnect();
 

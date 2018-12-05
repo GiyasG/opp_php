@@ -1,3 +1,4 @@
+<div ng-if="hasRoleAdmin">
 <h2> Shop </h2>
 
 <h4>
@@ -9,7 +10,7 @@
 <button class="btn btn-success" ng-click="AddItem()">Add new item</button>
 <hr>
 
-<admin-add ng-if="hasRoleAdmin && AddNewRecord"></admin-add>
+<admin-add ng-if="AddNewRecord"></admin-add>
 
 <div ng-repeat="item in aCtrl.items[0].all" ng-init="sectionIndex = $index">
 	<div ng-if="sectionIndex != updateIndex" class="row">
@@ -32,4 +33,5 @@
     </div>
     <admin-update ng-if="sectionIndex == updateIndex"></admin-update>
     <hr>
+</div>
 </div>

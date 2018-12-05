@@ -15,6 +15,8 @@
         aCtrl.items = items;
         $scope.updateIndex = null;
         $scope.AddNewRecord = false;
+        $scope.hasRoleAdmin = aCtrl.items[2].AdminIsIn;
+        console.log($scope.hasRoleAdmin);
 
         //**************** Data for Dbase Upload ********************//
           $scope.itemU = {};
@@ -78,8 +80,6 @@
         };
 
         //************************************************//
-        $scope.hasRoleAdmin = true;
-        //********************************************//
         $scope.DeleteItem = function(id) {
             console.log("id is: "+id);
           $http({
