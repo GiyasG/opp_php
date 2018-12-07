@@ -98,6 +98,7 @@
 
         $scope.UpdateItem = function (id, sid) {
           $scope.message = "";
+          $scope.updateIndex = sid;
           $http({
                 method  : 'POST',
                 url     : 'php/getUpdateItem.php',
@@ -109,8 +110,8 @@
                   console.log($scope.itemU);
                   return response.data.item;
               });
+            }
 
-          $scope.updateIndex = sid;
 
           //**************** File Update *********************//
           $scope.onFileUpdate = function(file) {
@@ -153,10 +154,6 @@
           };
 
           //************************************************//
-
-
-
-        }
 
         $scope.AddItem = function() {
           $scope.AddNewRecord = true;
